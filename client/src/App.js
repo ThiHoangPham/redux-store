@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { ApolloProvider } from '@apollo/react-hooks';
+import { ApolloProvider } from "@apollo/react-hooks";
 import ApolloClient from 'apollo-boost';
 
 import Home from "./pages/Home";
@@ -12,7 +12,7 @@ import Nav from "./components/Nav";
 import OrderHistory from "./pages/OrderHistory";
 import Success from "./pages/Success";
 
-onst client = new ApolloClient({
+const client = new ApolloClient({
   request: (operation) => {
     const token = localStorage.getItem('id_token')
     operation.setContext({

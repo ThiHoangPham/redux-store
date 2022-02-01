@@ -12,26 +12,34 @@ import { idbPromise } from "../../utils/helpers";
 import { useDispatch, useSelector } from 'react-redux';
 
 function ProductList() {
-  const [state, dispatch] = useStoreContext();
+
+  const state = useSelector((state) => {
+    return state;
+  });
+  const dispatch = useDispatch();
 
   const { currentCategory } = state;
-
   const { loading, data } = useQuery(QUERY_PRODUCTS);
 
   useEffect(() => {
+    // when there is data to be stored
     if (data) {
+      // store in the global state object
       dispatch({
         type: UPDATE_PRODUCTS,
-        products: data.products,
+        products: data.products
       });
+      // and store it in IndexedDB
       data.products.forEach((product) => {
         idbPromise('products', 'put', product);
       });
     } else if (!loading) {
+      // if loading is undefined, the user is offline - get data from the `products` store in IndexedDB
       idbPromise('products', 'get').then((products) => {
+        // use the IndexedDB data to set the global state for offline browsing
         dispatch({
           type: UPDATE_PRODUCTS,
-          products: products,
+          products: products
         });
       });
     }
@@ -42,9 +50,7 @@ function ProductList() {
       return state.products;
     }
 
-    return state.products.filter(
-      (product) => product.category._id === currentCategory
-    );
+    return state.products.filter(product => product.category._id === currentCategory);
   }
 
   return (
@@ -52,21 +58,22 @@ function ProductList() {
       <h2>Our Products:</h2>
       {state.products.length ? (
         <div className="flex-row">
-          {filterProducts().map((product) => (
-            <ProductItem
-              key={product._id}
-              _id={product._id}
-              image={product.image}
-              name={product.name}
-              price={product.price}
-              quantity={product.quantity}
-            />
-          ))}
+            {filterProducts().map(product => (
+                <ProductItem
+                  key= {product._id}
+                  _id={product._id}
+                  image={product.image}
+                  name={product.name}
+                  price={product.price}
+                  quantity={product.quantity}
+                />
+            ))}
         </div>
       ) : (
         <h3>You haven't added any products yet!</h3>
       )}
-      {loading ? <img src={spinner} alt="loading" /> : null}
+      { loading ? 
+      <img src={spinner} alt="loading" />: null}
     </div>
   );
 }
