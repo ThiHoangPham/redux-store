@@ -8,8 +8,6 @@ import { idbPromise } from '../../utils/helpers';
 import { useDispatch, useSelector } from 'react-redux';
 
 function ProductItem(item) {
-  const [state, dispatch] = useStoreContext();
-
   const {
     image,
     name,
@@ -18,11 +16,19 @@ function ProductItem(item) {
     quantity
   } = item;
 
-  const { cart } = state
+  const state = useSelector((state) => {
+    return state;
+  });
+  const dispatch = useDispatch();
+
+  const { cart } = state;
 
   const addToCart = () => {
-    const itemInCart = cart.find((cartItem) => cartItem._id === _id)
-    if (itemInCart) {
+    // check for a matching item in the cart
+    const itemInCart = cart.find((cartItem) => cartItem._id === _id);
+
+    // if there is a match, use UPDATE and update the purchase quantity, otherwise use ADD; store data in IndexedDB as well
+    if(itemInCart) {
       dispatch({
         type: UPDATE_CART_QUANTITY,
         _id: _id,
@@ -39,7 +45,7 @@ function ProductItem(item) {
       });
       idbPromise('cart', 'put', { ...item, purchaseQuantity: 1 });
     }
-  }
+  };
 
   return (
     <div className="card px-1 py-1">
