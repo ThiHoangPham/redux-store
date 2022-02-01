@@ -1,4 +1,3 @@
-# redux-store 
 <h1 align="center"> STATE - REDUX STORE 🚩</h1>
 <br>
 <p align="center">
