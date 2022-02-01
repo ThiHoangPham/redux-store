@@ -12,9 +12,11 @@
     "heroku-postbuild": "cd client && npm run build"
   },
   "author": "THAI HOANG PHAM",
-  "license": "MIT",
+  "license": "ISC",
   "dependencies": {
-    "if-env": "^1.0.4"
+    "apollo-link": "^1.2.14",
+    "if-env": "^1.0.4",
+    "react-scripts": "4.0.3"
   },
   "devDependencies": {
     "concurrently": "^5.1.0"
@@ -22,9 +24,6 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ThiHoangPham/redux-store.git"
-  },
-  "bugs": {
-    "url": "https://github.com/ThiHoangPham/redux-store/issues"
   },
   "homepage": "https://github.com/ThiHoangPham/redux-store#readme"
 }
