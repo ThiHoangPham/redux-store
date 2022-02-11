@@ -106,7 +106,7 @@ WHEN I review the way the app dispatches actions
 THEN I find that the app uses Redux instead of the Context API
 ```
 
-# Live Demo Github: 
+# Live Demo Heroku: 
 <a href="https://boiling-reaches-86247.herokuapp.com/">
   <img alt="live demo heroku" src="https://img.shields.io/badge/demo-heroku-%23430098.svg?style=for-the-badge&logo=heroku&logoColor=white" target="_blank" />
   </a>
